@@ -1,3 +1,6 @@
+## Check binary permissions
+in bash : `ls -l` and `getfacl binary`
+
 ## Check the System Architecture
 
 in bash : 

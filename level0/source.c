@@ -10,8 +10,9 @@ int main(int argc, char *argv[]) {
     }
 
     int val = atoi(argv[1] + 4);
-    if (val == 423) { // 0x1a7 = 423 decimal
-        char *path = strdup("/path/to/some/file"); // 0x80c5348 assumed string address
+    if (val == 423) { // 0x1a7
+        char *path = strdup("/bin/sh"); // 0x80c5348
+        
         int zero = 0;
         gid_t egid = getegid();
         uid_t euid = geteuid();
@@ -22,14 +23,7 @@ int main(int argc, char *argv[]) {
         char *args[] = {path, NULL};
         execv(path, args);
     } else {
-        // fwrite(0x80ee170, 5, 1, 0x80c5350)
-        // Assuming 0x80ee170 is a pointer to some data and 0x80c5350 is a FILE* or similar
-        // Since we cannot access those addresses, simulate with placeholders:
-
-        const char *data = (const char *)0x80ee170; // placeholder pointer
-        FILE *stream = (FILE *)0x80c5350;           // placeholder FILE pointer
-
-        fwrite(data, 5, 1, stream);
+        // This part is not necessary to solve since we just need to bypass the atoi check
     }
 
     return 0;
