@@ -1,4 +1,4 @@
-# Walkthough
+# SIMPLE ATOI CHECKING BYPASS
 
 ## What are the binary permissions ?
 ```

@@ -24,3 +24,32 @@ in gdb : ` set disassembly-flavor syntax_name`
 
 in shell : `echo -n I | od -to2 | head -n1 | cut -f2 -d" " | cut -c6`
 if the output is 1, it's little-endian, if it's 0, it's big-endian
+
+## Turn asm instructions into a C code
+
+Use [assembly-to-c-converter](https://www.codeconvert.ai/assembly-to-c-converter)
+
+## Typical stack frame
+For a function p:
+```
+void p(int value)
+{
+	char buffer[0x4c];
+	return;
+}
+```
+
+The stack frame looks like this :
+```
+	High Addresses
+	+-------------------+
+	| **input (0)**     |  ← [EBP + 8]  (argument)
+	+-------------------+
+	| Return Address    |  ← [EBP + 4]  (where to go after `p` returns)
+	+-------------------+
+	| Saved EBP         |  ← [EBP]      (saved by `push ebp`)
+	+-------------------+
+	| buffer[76]        |  ← [EBP - 76] (local variable)
+	+-------------------+
+	Low Addresses
+```
