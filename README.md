@@ -53,3 +53,11 @@ The stack frame looks like this :
 	+-------------------+
 	Low Addresses
 ```
+
+## Extract binary to the host machine
+
+in bash : `scp levelX@vm_ip:/home/user/levelX/levelX levelX`
+
+## Display the dynamic relocation entries in the file (PLT and GOT tables)
+
+in bash : `objdump -M intel -R binary`
