@@ -27,7 +27,8 @@ if the output is 1, it's little-endian, if it's 0, it's big-endian
 
 ## Turn asm instructions into a C code
 
-Use [assembly-to-c-converter](https://www.codeconvert.ai/assembly-to-c-converter)
+- [assembly-to-c-converter](https://www.codeconvert.ai/assembly-to-c-converter)
+- [dogbolt](https://dogbolt.org)
 
 ## Typical stack frame
 For a function p:
