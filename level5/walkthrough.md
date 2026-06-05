@@ -1,6 +1,6 @@
 # STILL PRINTF FORMAT STRING VULNERABILITY, BUT INFECTING THE PLT TABLE INSTEAD
 
-```
+```asm
 08048504 <main>:
  8048504:	55                   	push   ebp
  8048505:	89 e5                	mov    ebp,esp
@@ -11,7 +11,7 @@
 ```
 Main function only calls `n` and then exits. So the vulnerability is in `n`.
 
-```
+```asm
 080484c2 <n>:
  80484c2:	55                   	push   ebp
  80484c3:	89 e5                	mov    ebp,esp
@@ -31,7 +31,7 @@ Main function only calls `n` and then exits. So the vulnerability is in `n`.
 ```
 The vulnerability is in the call to `printf` : the user input is directly passed as the format string, but what address can we modify to exploit it ?
 
-```
+```asm
 080484a4 <o>:
  80484a4:	55                   	push   ebp
  80484a5:	89 e5                	mov    ebp,esp
@@ -43,7 +43,7 @@ The vulnerability is in the call to `printf` : the user input is directly passed
 ```
 There is a function `o` that calls `system("/bin/sh")` and then exits. So if we can modify an address to point to `o`, we can get a shell. But which address can we modify ? The GOT table is not writable, but the PLT table is
 
-```
+```asm
 080484c2 <n>:
  ...
  80484f3:	e8 88 fe ff ff       	call   8048380 <printf@plt>
@@ -52,7 +52,7 @@ There is a function `o` that calls `system("/bin/sh")` and then exits. So if we 
  80484ff:	e8 cc fe ff ff       	call   80483d0 <exit@plt>
 ```
 
-```
+```asm
 080483d0 <exit@plt>:
  80483d0:	ff 25 38 98 04 08    	jmp    DWORD PTR ds:0x8049838
 ```

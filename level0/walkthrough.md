@@ -15,30 +15,30 @@ Meaning that when we execute the binary, the effective user id (euid) becomes le
 
 ### A vulnerable comparison  
 
-```
+```asm
    0x08048ec9 <+9>:     mov    eax,DWORD PTR [ebp+0xc]
    0x08048ecc <+12>:    add    eax,0x4
    0x08048ecf <+15>:    mov    eax,DWORD PTR [eax]
 ```
 Move argv[0] in eax, then add 4 (size of an address) to get to the next argument argv[1] and move it in eax
 
-```
+```asm
    0x08048ed1 <+17>:    mov    DWORD PTR [esp],eax
    0x08048ed4 <+20>:    call   0x8049710 <atoi>
    0x08048ed9 <+25>:    cmp    eax,0x1a7
 ```
 compare argv[1] to 0x1a7 (423)
 
-```
+```asm
    0x08048ede <+30>:    jne    0x8048f58 <main+152>
 ```
 if not equal, jump to 0x8048f58, which avoid the shell opening code
 
-```
+```asm
    (gdb) p (char*) 0x80c5348
    $1 = 0x80c5348 "/bin/sh"
 ```
-```
+```asm
    0x08048ee0 <+32>:    mov    DWORD PTR [esp],0x80c5348
    0x08048ee7 <+39>:    call   0x8050bf0 <strdup>
    0x08048eec <+44>:    mov    DWORD PTR [esp+0x10],eax
@@ -46,7 +46,7 @@ if not equal, jump to 0x8048f58, which avoid the shell opening code
 ```
 put the address of the string "/bin/sh" at esp+0x10, and NULL at esp+0x14
 
-```
+```asm
    0x08048ef8 <+56>:    call   0x8054680 <getegid>
    0x08048efd <+61>:    mov    DWORD PTR [esp+0x1c],eax
    0x08048f01 <+65>:    call   0x8054670 <geteuid>
@@ -71,7 +71,7 @@ set the real uid and gid to the effective ones, now :
 - effective user id (euid) = level1
 - group id (gid) = users
 
-```
+```asm
    0x08048f42 <+130>:   lea    eax,[esp+0x10]
    0x08048f46 <+134>:   mov    DWORD PTR [esp+0x4],eax
    0x08048f4a <+138>:   mov    DWORD PTR [esp],0x80c5348

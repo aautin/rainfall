@@ -1,6 +1,6 @@
 # PRINTF FORMAT STRING VULNERABILITY (WRITING WITH %n)
 
-```
+```asm
 0804851a <main>:
  804851a:	55                   	push   ebp
  804851b:	89 e5                	mov    ebp,esp
@@ -12,7 +12,7 @@
 ```
 Its basically calling the v function
 
-```
+```asm
 080484a4 <v>:
  80484a4:	55                   	push   ebp
  80484a5:	89 e5                	mov    ebp,esp
@@ -27,7 +27,7 @@ Its basically calling the v function
 ```
 Like in the previous level, it reads our input into a buffer, but this time, the buffer writting is protecting in its lenght with fgets
 
-```
+```asm
  80484cc:	8d 85 f8 fd ff ff    	lea    eax,[ebp-0x208]
  80484d2:	89 04 24             	mov    DWORD PTR [esp],eax
  80484d5:	e8 b6 fe ff ff       	call   8048390 <printf@plt>
@@ -38,7 +38,7 @@ We can also use printf to read memory with the %p/%s specifiers debug easily whe
 
 In summary, now we can write values into the addresses we want, as soon as the format string is short enough to fit in the buffer fgets is using
 
-```
+```asm
  80484da:	a1 8c 98 04 08       	mov    eax,ds:0x804988c
  80484df:	83 f8 40             	cmp    eax,0x40
  80484e2:	75 34                	jne    8048518 <v+0x74>

@@ -21,7 +21,7 @@ Same as before, when we execute the binary, the effective user id (euid) becomes
 
 ## We can jump back whereever we want
 
-```
+```asm
 08048480 <main>:
  8048480:	55                   	push   ebp
  8048481:	89 e5                	mov    ebp,esp
@@ -29,7 +29,7 @@ Same as before, when we execute the binary, the effective user id (euid) becomes
 ```
 The base pointer is pushed on the stack, then the stack is 16-byte aligned 
 
-```
+```asm
  8048486:	83 ec 50             	sub    esp,0x50
  8048489:	8d 44 24 10          	lea    eax,[esp+0x10]
  804848d:	89 04 24             	mov    DWORD PTR [esp],eax
@@ -37,7 +37,7 @@ The base pointer is pushed on the stack, then the stack is 16-byte aligned
 Then the stack pointer grows down by 0x50 (80) bytes
 And a buffer is allocated at esp+0x10, it has a size of 0x50 - 0x10 = 0x40 (64) bytes, so the buffer is 64 bytes long
 
-```
+```asm
  8048490:	e8 ab fe ff ff       	call   8048340 <gets@plt>
  8048495:	c9                   	leave
 ```
@@ -54,7 +54,7 @@ Gets is called (which is unsafe since it doesn't check the size of the input), i
 ```
 The 3 strings used in the following code
 
-```
+```asm
 08048444 <run>:
  8048444:	55                   	push   ebp
  8048445:	89 e5                	mov    ebp,esp

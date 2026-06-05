@@ -1,6 +1,6 @@
 # SAME AS LEVEL3, PRINTF FORMAT STRING VULNERABILITY, BUT WITH A GIANT NUMBER TO WRITE (USE FORMAT SPECIFIER %Xd)
 
-```
+```asm
 080484a7 <main>:
  80484a7:	55                   	push   ebp
  80484a8:	89 e5                	mov    ebp,esp
@@ -11,7 +11,7 @@
 ```
 The main function only calls the function n
 
-```
+```asm
 08048457 <n>:
  8048457:	55                   	push   ebp
  8048458:	89 e5                	mov    ebp,esp
@@ -24,7 +24,7 @@ The main function only calls the function n
  8048477:	89 04 24             	mov    DWORD PTR [esp],eax
  804847a:	e8 d1 fe ff ff       	call   8048350 <fgets@plt>
 ```
-```
+```asm
 08048444 <p>:
  8048444:	55                   	push   ebp
  8048445:	89 e5                	mov    ebp,esp
@@ -37,7 +37,7 @@ The main function only calls the function n
 ```
 Like in level3, its calling fgets on a buffer, no vulnerability here, but calls the function p with the buffer as the string format argument for printf.
 
-```
+```asm
  804848d:	a1 10 98 04 08       	mov    eax,ds:0x8049810
  8048492:	3d 44 55 02 01       	cmp    eax,0x1025544
  8048497:	75 0c                	jne    80484a5 <n+0x4e>

@@ -1,6 +1,6 @@
 # BUFFER OVERFLOW MODIFYING THE RETURN ADDRESS TO A HEAP ADDRESS OPENING A CUSTOM SHELL
 
-```
+```asm
 0804853f <main>:
  804853f:	55                   	push   ebp
  8048540:	89 e5                	mov    ebp,esp
@@ -15,7 +15,7 @@
 ```
 The main function is basically just calling the function `p`
 
-```
+```asm
 080484d4 <p>:
  80484d4:	55                   	push   ebp
  80484d5:	89 e5                	mov    ebp,esp
@@ -33,7 +33,7 @@ Problems:
 - {problem1} there is no other function that opens a shell
 - {problem2}(see right below) there is a check on the return address of `p` that exit if it is on the stack addresses space (0xb0000000 and above)
 
-```
+```asm
  80484f2:	8b 45 04             	mov    eax,DWORD PTR [ebp+0x4]
  80484f5:	89 45 f4             	mov    DWORD PTR [ebp-0xc],eax
  80484f8:	8b 45 f4             	mov    eax,DWORD PTR [ebp-0xc]

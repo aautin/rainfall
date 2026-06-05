@@ -1,6 +1,6 @@
 # STRCPY VULNERABILITY ON CLI ARGUMENTS, OVERWRITING FUNCTION_PTR
 
-```
+```asm
 0804847c <main>:
  804847c:	55                   	push   ebp
  804847d:	89 e5                	mov    ebp,esp
@@ -16,7 +16,7 @@
 ```
 It's mallocing two buffers
 
-```
+```asm
 08048468 <m>:
  8048468:	55                   	push   ebp
  8048469:	89 e5                	mov    ebp,esp
@@ -28,7 +28,7 @@ It's mallocing two buffers
 ```
 The second is used to store a function pointer (the function `o`), but this function leads to a non-vulnerable code
 
-```
+```asm
  80484aa:	8b 44 24 18          	mov    eax,DWORD PTR [esp+0x18]
  80484ae:	89 10                	mov    DWORD PTR [eax],edx
  80484b0:	8b 45 0c             	mov    eax,DWORD PTR [ebp+0xc]
@@ -55,7 +55,7 @@ malloc(4)            = 0x0804a050
 ```
 0x0804a050 - 0x0804a008 = 0x48 (72 in decimal). Then we can write 72 bytes, then the 4 next bytes we write will be written at the address of the function pointer. Lets now define our new target to execute
 
-```
+```asm
 ...
 08048454 <n>:
  8048454:	55                   	push   ebp
