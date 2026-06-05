@@ -34,7 +34,7 @@ compare argv[1] to 0x1a7 (423)
 ```
 if not equal, jump to 0x8048f58, which avoid the shell opening code
 
-```asm
+```
    (gdb) p (char*) 0x80c5348
    $1 = 0x80c5348 "/bin/sh"
 ```

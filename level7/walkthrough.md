@@ -1,4 +1,4 @@
-# 
+# HEAP BUFFER OVERFLOW WITH STRCPY VULNERABILITY
 
 ```
 ~$ ./level7
@@ -150,7 +150,7 @@ Local exec file:
 0x8048706:	 <Address 0x8048706 out of bounds>
 0x8048706:	 <Address 0x8048706 out of bounds>
 ```
-```
+```asm
  80485c2:	ba e9 86 04 08       	mov    edx,0x80486e9
  80485c7:	b8 eb 86 04 08       	mov    eax,0x80486eb
  80485cc:	89 54 24 04          	mov    DWORD PTR [esp+0x4],edx
@@ -166,7 +166,7 @@ Local exec file:
 ```
 Specify which address will replace: at the end of the main function, the content of `/home/user/level8/.pass` is copied to a buffer located at 0x8048703, but is never read, only the puts function is called on a random "~~" string.
 
-```
+```asm
 080484f4 <m>:
  80484f4:	55                   	push   ebp
  80484f5:	89 e5                	mov    ebp,esp
