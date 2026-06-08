@@ -16,6 +16,10 @@ public:
         return this->n - rhs.n;
     }
 
+    // vptr isnt really accessible in C++
+    // it's just here to visualize the vtable accessibility in the main function
+    void* vptr[2] = { (void*) &N::operator+, (void*) &N::operator- };
+
     void setAnnotation(char *s)
 	{
         memcpy(this->annotation, s, strlen(s));
@@ -34,5 +38,9 @@ int main(int argc, char *argv[])
 
     class1->setAnnotation(argv[1]);
 
-    return (*class2 + *class1);
+    N* ptr1 = class1;
+    N* ptr2 = class2;
+    void* vptr1 = ptr1->vptr[0];
+
+    return vptr1(*ptr1, *ptr2);
 }
