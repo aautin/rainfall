@@ -1,4 +1,4 @@
-# 
+# Buffer overflow corrupting a CPP class vtable
 
 ```asm
 080485f4 <main>:
